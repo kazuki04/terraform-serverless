@@ -1,6 +1,7 @@
 variable "service_name" {
   description = "Service Name"
   type        = string
+  default     = ""
 }
 
 variable "environment_identifier" {

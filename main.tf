@@ -12,6 +12,14 @@ provider "aws" {
   profile = var.profile
 }
 
+module "iam" {
+  source                 = "./modules/iam"
+  service_name           = var.service_name
+  environment_identifier = var.environment_identifier
+
+  ddb_table_arn = module.dynamodb.table_arn
+}
+
 module "cognito" {
   source                 = "./modules/cognito"
   service_name           = var.service_name
