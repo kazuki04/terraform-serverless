@@ -9,21 +9,6 @@ variable "environment_identifier" {
   default     = ""
 }
 
-variable "profile" {
-  description = "AWS Configuretion Profile"
-  type        = string
-  default     = ""
-}
-
-variable "region" {
-  description = "The region name"
-  type        = string
-  default     = ""
-}
-
-################################################################################
-# DynamoDB
-################################################################################
 variable "ddb_hash_key" {
   description = "Attribute to use as the hash (partition) key. Must also be defined as an attribute."
   type        = string
