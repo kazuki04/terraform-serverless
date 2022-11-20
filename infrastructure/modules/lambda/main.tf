@@ -18,7 +18,7 @@ resource "aws_lambda_function" "this" {
   ]
 
   tags = {
-    Name = "${var.service_name}-${var.environment_identifier}-lambda-notify_slack"
+    Name = "${var.service_name}-${var.environment_identifier}-lambda"
   }
 }
 

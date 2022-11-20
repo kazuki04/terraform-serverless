@@ -21,26 +21,6 @@ resource "aws_apigatewayv2_authorizer" "this" {
   }
 }
 
-resource "aws_apigatewayv2_route" "ride" {
-  api_id    = aws_apigatewayv2_api.this.id
-  route_key = "POST /ride"
-
-  target             = "integrations/${aws_apigatewayv2_integration.ride.id}"
-  authorizer_id      = aws_apigatewayv2_authorizer.this.id
-  authorization_type = "JWT"
-}
-
-resource "aws_apigatewayv2_integration" "ride" {
-  api_id           = aws_apigatewayv2_api.this.id
-  integration_type = "AWS_PROXY"
-
-  connection_type      = "INTERNET"
-  description          = "Lambda integration for ${var.service_name} in ${var.environment_identifier} environment"
-  integration_method   = "POST"
-  integration_uri      = var.lambda_functio_arn
-  passthrough_behavior = "WHEN_NO_MATCH"
-}
-
 resource "aws_apigatewayv2_deployment" "this" {
   api_id      = aws_apigatewayv2_api.this.id
   description = "Deployment in ${var.environment_identifier} in environment"
@@ -61,4 +41,27 @@ resource "aws_apigatewayv2_stage" "this" {
   api_id        = aws_apigatewayv2_api.this.id
   name          = var.environment_identifier
   deployment_id = aws_apigatewayv2_deployment.this.id
+}
+
+################################################################################
+# Route
+################################################################################
+resource "aws_apigatewayv2_route" "ride" {
+  api_id    = aws_apigatewayv2_api.this.id
+  route_key = "POST /ride"
+
+  target             = "integrations/${aws_apigatewayv2_integration.ride.id}"
+  authorizer_id      = aws_apigatewayv2_authorizer.this.id
+  authorization_type = "JWT"
+}
+
+resource "aws_apigatewayv2_integration" "ride" {
+  api_id           = aws_apigatewayv2_api.this.id
+  integration_type = "AWS_PROXY"
+
+  connection_type      = "INTERNET"
+  description          = "Lambda integration for ${var.service_name} in ${var.environment_identifier} environment"
+  integration_method   = "POST"
+  integration_uri      = var.lambda_functio_arn
+  passthrough_behavior = "WHEN_NO_MATCH"
 }
