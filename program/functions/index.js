@@ -90,7 +90,7 @@ function findUnicorn(pickupLocation) {
 
 function recordRide(rideId, username, unicorn) {
     return ddb.put({
-        TableName: 'Rides',
+        TableName: 'terraform-serverless-dev-ddb-table',
         Item: {
             RideId: rideId,
             User: username,
