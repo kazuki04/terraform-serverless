@@ -11,7 +11,7 @@ resource "aws_cognito_user_pool" "this" {
   }
 
   admin_create_user_config {
-    allow_admin_create_user_only = true
+    allow_admin_create_user_only = false
   }
 
   password_policy {
@@ -19,7 +19,7 @@ resource "aws_cognito_user_pool" "this" {
     require_lowercase                = true
     require_numbers                  = true
     require_uppercase                = true
-    require_symbols                  = false
+    require_symbols                  = true
     temporary_password_validity_days = 7
   }
 
@@ -28,10 +28,10 @@ resource "aws_cognito_user_pool" "this" {
   }
 }
 
-resource "aws_cognito_user_pool_client" "client" {
-  name = "${var.service_name}-${var.environment_identifier}-cognito-client"
-
+resource "aws_cognito_user_pool_client" "this" {
+  name                = "${var.service_name}-${var.environment_identifier}-cognito-client"
   user_pool_id        = aws_cognito_user_pool.this.id
+  generate_secret     = false
   explicit_auth_flows = [
     "ALLOW_USER_PASSWORD_AUTH",
     "ALLOW_ADMIN_USER_PASSWORD_AUTH",

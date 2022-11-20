@@ -42,3 +42,13 @@ module "lambda" {
 
   role_arn_lambda = module.iam.role_arn_lambda
 }
+
+module "apigateway" {
+  source                 = "./modules/apigateway"
+  service_name           = var.service_name
+  environment_identifier = var.environment_identifier
+
+  cognito_user_pool_endpoint  = module.cognito.cognito_user_pool_endpoint
+  cognito_user_pool_client_id = module.cognito.cognito_user_pool_client_id
+  lambda_functio_arn          = module.lambda.functio_arn
+}
