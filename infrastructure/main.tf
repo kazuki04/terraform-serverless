@@ -27,10 +27,18 @@ module "cognito" {
 }
 
 module "dynamodb" {
-  source = "./modules/dynamodb"
+  source                 = "./modules/dynamodb"
   service_name           = var.service_name
   environment_identifier = var.environment_identifier
 
   ddb_hash_key   = var.ddb_hash_key
   ddb_attributes = var.ddb_attributes
+}
+
+module "lambda" {
+  source                 = "./modules/lambda"
+  service_name           = var.service_name
+  environment_identifier = var.environment_identifier
+
+  role_arn_lambda = module.iam.role_arn_lambda
 }
