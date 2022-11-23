@@ -1,0 +1,23 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-terraformserverless-dev-01100-authRole",
+      "UnauthRoleArn": "arn:aws:iam::662699157964:role/amplify-terraformserverless-dev-01100-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::662699157964:role/amplify-terraformserverless-dev-01100-authRole",
+      "Region": "ap-northeast-1",
+      "DeploymentBucketName": "amplify-terraformserverless-dev-01100-deployment",
+      "UnauthRoleName": "amplify-terraformserverless-dev-01100-unauthRole",
+      "StackName": "amplify-terraformserverless-dev-01100",
+      "StackId": "arn:aws:cloudformation:ap-northeast-1:662699157964:stack/amplify-terraformserverless-dev-01100/e02e3310-6a77-11ed-ad41-0e72cbc05885",
+      "AmplifyAppId": "dmtmnevwqnip5"
+    },
+    "categories": {
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "dmtmnevwqnip5",
+          "type": "manual"
+        }
+      }
+    }
+  }
+}
