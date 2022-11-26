@@ -4,7 +4,7 @@ AmplifyとAPI Gatewayを使った簡単なサーバレスアプリケーショ�
 # 環境構築
 ## Amplify環境の構築
 
-1. 以下コマンドでアプリケーションの初期化を行う。
+1. program/frontend/appディレクトリに移動し、以下コマンドでアプリケーションの初期化を行う。
     ```
     amplify init
     ```
@@ -27,7 +27,9 @@ AmplifyとAPI Gatewayを使った簡単なサーバレスアプリケーショ�
 
     Next.jsでSSRでのデプロイは行わないため、「Distribution Directory Path」の選択肢は「out」と入力する。
 
-    ※ もしもSSGとSSRのハイブリッドアプリケーションをデプロイする場合、「Distribution Directory Path」の選択肢は「.next」と入力する。そして、Amplifyのコンソール画面から設定・デプロイを行う。(参考: [Feature branch deployments and team workflows](https://docs.aws.amazon.com/amplify/latest/userguide/multi-environments.html#standard))
+    ※ もしもSSGとSSRのハイブリッドアプリケーションをデプロイする場合、「Distribution Directory Path」の選択肢は「.next」と入力する。そして、Amplifyのコンソール画面から設定・デプロイを行う。
+    
+    (参考: [Feature branch deployments and team workflows](https://docs.aws.amazon.com/amplify/latest/userguide/multi-environments.html#standard))
 
 2. 以下コマンドを入力し、Hostingの設定を行う。
     ```
@@ -39,8 +41,7 @@ AmplifyとAPI Gatewayを使った簡単なサーバレスアプリケーショ�
     ? Select the plugin module to execute: Hosting with Amplify Console (Managed hosting with custom domains, Continuous deployment)
     ? Choose a type: Manual Deployment
     ```
-
-    以下コマンドを入力し、フロントエンドアプリケーションをデプロイする。
+3. 以下コマンドを入力し、フロントエンドアプリケーションをデプロイする。
     ```
     amplify publish
     ```
@@ -49,8 +50,34 @@ AmplifyとAPI Gatewayを使った簡単なサーバレスアプリケーショ�
 1. infrastructureディレクトリ配下にtfvarsファイルを配置する。
 2. infrastructureディレクトリにおいて、terraform plan & applyでリソースを作成する
 
+
+# ディレクトリ構成
+ディレクトリ構成は以下の通り。
+
+```
+.
+├── README.md
+├── infrastructure
+│   ├── main.tf
+│   ├── modules
+│   ├── outputs.tf
+│   ├── terraform.tfvars
+│   └── variables.tf
+└── program
+    ├── frontend
+    └── functions
+```
+
+### infrastructureディレクトリ
+インフラリソースを作成するためのTerraformファイルを配置するディレクトリ。。modulesディレクトリに各AWSリソースを作成するためのtfファイルを配置する。
+
+### programディレクトリ
+アプリケーションプログラムを配置するディレクトリ。 フロントエンドアプリケーションとAWS Lambdaで使用する関数を配置する。
+
 # アーキテクチャ図
 ## システム全体図
+![serverless_architecture](https://user-images.githubusercontent.com/63912049/204096150-1a6e8e0a-afe5-4596-b65f-df9ffbfe5217.png)
+
 
 ### AWS Cognito
 ユーザー管理にCognitoを使用する。ユーザーはCognitoに対してリクエストを行い、JWTトークンを受け取る。
