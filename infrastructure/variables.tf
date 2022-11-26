@@ -35,3 +35,12 @@ variable "ddb_attributes" {
   type        = list(map(string))
   default     = []
 }
+
+################################################################################
+# Lambda
+################################################################################
+variable "lambda_runtime" {
+  description = "The runtime of lambda"
+  type        = string
+  default     = ""
+}

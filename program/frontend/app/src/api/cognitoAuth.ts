@@ -1,12 +1,18 @@
-import { authenticationData, poolData, signInResult } from "../types/cognitoAuth"
+import {
+    authenticationData,
+    poolData,
+    signInResult,
+}
+from "../types/cognitoAuth"
 import {
     AuthenticationDetails,
     CognitoUser,
+    CookieStorage,
     CognitoUserPool,
-    CookieStorage
+    CognitoUserSession,
 } from 'amazon-cognito-identity-js';
 
-export default async function cognitoAuth(username: string, password: string): Promise<signInResult> {
+function getPoolData(): poolData {
     const poolData: poolData = {
         UserPoolId: process.env.NEXT_PUBLIC_USER_POOL_ID as string,
         ClientId: process.env.NEXT_PUBLIC_CLIENT_ID as string,
@@ -15,6 +21,13 @@ export default async function cognitoAuth(username: string, password: string): P
             secure: false,
         }),
     };
+
+    return poolData;
+}
+
+export async function cognitoAuth(username: string, password: string): Promise<signInResult> {
+    const poolData: poolData = getPoolData()
+    
     const userPool = new CognitoUserPool(poolData);
     let userData = {
         Username: username,
@@ -45,3 +58,34 @@ export default async function cognitoAuth(username: string, password: string): P
 
     return signInResult
 };
+
+export function getCognitoUserSession(): CognitoUserSession| null {
+    const poolData: poolData = getPoolData()
+
+    const userPool = new CognitoUserPool(poolData);
+    const cognitoUser = userPool.getCurrentUser()
+
+    if (!cognitoUser) {
+        return null
+    }
+
+    let userSession = null
+    cognitoUser.getSession((err: Error, session: CognitoUserSession | null) => {
+        if (session != null) {
+            userSession = session
+        }
+    })
+
+    return userSession
+}
+
+export function getCognitoAccessToken(): string | null {
+    const userSession = getCognitoUserSession()
+
+    let accessToken = null
+    if (userSession != null) {
+        accessToken = userSession.getAccessToken().getJwtToken()
+    }
+
+    return accessToken
+}

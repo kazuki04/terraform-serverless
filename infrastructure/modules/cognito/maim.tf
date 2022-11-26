@@ -1,7 +1,9 @@
 resource "aws_cognito_user_pool" "this" {
   name                     = "${var.service_name}-${var.environment_identifier}-cognito-pool"
   auto_verified_attributes = [ "email" ]
-  alias_attributes         = [ "email", "preferred_username" ]
+  # alias_attributes         = [ "email", "preferred_username" ]
+  username_attributes      = [ "email" ]
+
 
   account_recovery_setting {
     recovery_mechanism {

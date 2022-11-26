@@ -21,7 +21,13 @@ variable "cognito_user_pool_client_id" {
   default     = ""
 }
 
-variable "lambda_functio_arn" {
+variable "lambda_function_arn_index" {
+  description = "Amazon Resource Name (ARN) identifying your Lambda Function."
+  type        = string
+  default     = ""
+}
+
+variable "lambda_function_arn_create" {
   description = "Amazon Resource Name (ARN) identifying your Lambda Function."
   type        = string
   default     = ""
