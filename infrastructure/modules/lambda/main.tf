@@ -20,6 +20,13 @@ resource "aws_lambda_function" "index" {
   runtime          = var.lambda_runtime
   source_code_hash = data.archive_file.index.output_base64sha256
 
+  environment {
+    variables = {
+      API_ENDPOINT   = var.api_endpoint
+      DDB_TABLE_NAME = local.ddb_table_name
+    }
+  }
+
   tags = {
     Name = "${var.service_name}-${var.environment_identifier}-lambda-article-index"
   }
@@ -57,6 +64,7 @@ resource "aws_lambda_function" "create" {
       DDB_TABLE_NAME = local.ddb_table_name
     }
   }
+
   tags = {
     Name = "${var.service_name}-${var.environment_identifier}-lambda-article-create"
   }
