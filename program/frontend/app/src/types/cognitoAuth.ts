@@ -1,4 +1,4 @@
-import { CognitoUserSession, CookieStorage } from 'amazon-cognito-identity-js';
+import {CognitoUserSession, CookieStorage} from 'amazon-cognito-identity-js';
 
 export type poolData = {
     UserPoolId: string

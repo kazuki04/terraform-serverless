@@ -4,5 +4,5 @@ export default function posts() {
         <div>
             Posts
         </div>
-    )
+    );
 }

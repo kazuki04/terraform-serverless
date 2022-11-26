@@ -1,17 +1,17 @@
-import { AxiosResponse } from 'axios'
-import { ChangeEvent, useState } from 'react'
-import apiClient from '../api/apiClient'
-import { getCognitoAccessToken } from "../api/cognitoAuth"
-import styles from '../styles/Home.module.css'
+import {AxiosResponse} from 'axios';
+import {ChangeEvent, useState} from 'react';
+import apiClient from '../api/apiClient';
+import {getCognitoAccessToken} from '../api/cognitoAuth';
+import styles from '../styles/Home.module.css';
 
 export default function Post() {
-    const [title, setTitle] = useState('')
-    const [content, setContent] = useState('')
-    const authToken = getCognitoAccessToken()
+    const [title, setTitle] = useState('');
+    const [content, setContent] = useState('');
+    const authToken = getCognitoAccessToken();
 
     const postArticle = async () => {
         try {
-            apiClient.interceptors
+            apiClient.interceptors;
             const response: AxiosResponse = await apiClient.post(
                 '/api/v1/article',
                 { 
@@ -23,29 +23,28 @@ export default function Post() {
                         Authorization: authToken
                     }
                 }
-            )
+            );
 
             return {
                 status: response.status ?? 200,
                 success: true,
-            }
+            };
         } catch (e: any) {
-            console.log(e)
+            console.log(e);
             // return {
             //     status: e.response.status === 0 ? 500 : e.response.status,
             //     success: false,
             // }
         }
-
-    }
+    };
 
     const handleChangeTitle = (e: ChangeEvent<HTMLInputElement>) => {
-        setTitle(e.target.value)
-    }
+        setTitle(e.target.value);
+    };
 
     const handleChangeContent = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        setContent(e.target.value)
-    }
+        setContent(e.target.value);
+    };
 
     return (
         <div className={styles.container}>
@@ -54,10 +53,11 @@ export default function Post() {
                     <label htmlFor="first" className={styles.input_label}>Title:</label>
                     <input type="text" id="title" name="title" onChange={handleChangeTitle} value={title} />
                     <label htmlFor="last" className={styles.input_label}>Content:</label>
-                    <textarea id="content" name="content" className={styles.content} onChange={handleChangeContent} value={content}></textarea>
+                    <textarea id="content" name="content" className={styles.content} onChange={handleChangeContent} value={content}>
+                    </textarea>
                     <button type="button" className={styles.submit_button} onClick={postArticle}>Submit</button>
                 </form>
             </main>
         </div>
-    )
+    );
 }

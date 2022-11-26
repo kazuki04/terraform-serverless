@@ -1,13 +1,12 @@
-import { useRouter } from "next/router";
-import styles from '../styles/Home.module.css'
+import {useRouter} from 'next/router';
+import styles from '../styles/Home.module.css';
 
 export default function Top() {
     const router = useRouter();
 
     const handleClickLoginButton = () => {
-        router.push("/login")
-
-    }
+        router.push('/login');
+    };
 
     return (
         <div className={styles.container}>
@@ -16,5 +15,5 @@ export default function Top() {
                 <button onClick={handleClickLoginButton }>Sign in</button>
             </main>
         </div>
-    )
+    );
 }

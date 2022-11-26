@@ -3,7 +3,7 @@ import {
     poolData,
     signInResult,
 }
-from "../types/cognitoAuth"
+from '../types/cognitoAuth';
 import {
     AuthenticationDetails,
     CognitoUser,
@@ -26,7 +26,7 @@ function getPoolData(): poolData {
 }
 
 export async function cognitoAuth(username: string, password: string): Promise<signInResult> {
-    const poolData: poolData = getPoolData()
+    const poolData: poolData = getPoolData();
     
     const userPool = new CognitoUserPool(poolData);
     let userData = {
@@ -54,38 +54,38 @@ export async function cognitoAuth(username: string, password: string): Promise<s
               err: err,
             }),
         });
-    })
+    });
 
-    return signInResult
+    return signInResult;
 };
 
 export function getCognitoUserSession(): CognitoUserSession| null {
-    const poolData: poolData = getPoolData()
+    const poolData: poolData = getPoolData();
 
     const userPool = new CognitoUserPool(poolData);
-    const cognitoUser = userPool.getCurrentUser()
+    const cognitoUser = userPool.getCurrentUser();
 
     if (!cognitoUser) {
-        return null
+        return null;
     }
 
-    let userSession = null
+    let userSession = null;
     cognitoUser.getSession((err: Error, session: CognitoUserSession | null) => {
         if (session != null) {
-            userSession = session
+            userSession = session;
         }
-    })
+    });
 
-    return userSession
+    return userSession;
 }
 
 export function getCognitoAccessToken(): string | null {
-    const userSession = getCognitoUserSession()
+    const userSession = getCognitoUserSession();
 
-    let accessToken = null
+    let accessToken = null;
     if (userSession != null) {
-        accessToken = userSession.getAccessToken().getJwtToken()
+        accessToken = userSession.getAccessToken().getJwtToken();
     }
 
-    return accessToken
+    return accessToken;
 }
