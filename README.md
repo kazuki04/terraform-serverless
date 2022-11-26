@@ -27,7 +27,9 @@ AmplifyとAPI Gatewayを使った簡単なサーバレスアプリケーショ�
 
     Next.jsでSSRでのデプロイは行わないため、「Distribution Directory Path」の選択肢は「out」と入力する。
 
-    ※ もしもSSGとSSRのハイブリッドアプリケーションをデプロイする場合、「Distribution Directory Path」の選択肢は「.next」と入力する。そして、Amplifyのコンソール画面から設定・デプロイを行う。(参考: [Feature branch deployments and team workflows](https://docs.aws.amazon.com/amplify/latest/userguide/multi-environments.html#standard))
+    ※ もしもSSGとSSRのハイブリッドアプリケーションをデプロイする場合、「Distribution Directory Path」の選択肢は「.next」と入力する。そして、Amplifyのコンソール画面から設定・デプロイを行う。
+    
+    (参考: [Feature branch deployments and team workflows](https://docs.aws.amazon.com/amplify/latest/userguide/multi-environments.html#standard))
 
 2. 以下コマンドを入力し、Hostingの設定を行う。
     ```
@@ -39,8 +41,7 @@ AmplifyとAPI Gatewayを使った簡単なサーバレスアプリケーショ�
     ? Select the plugin module to execute: Hosting with Amplify Console (Managed hosting with custom domains, Continuous deployment)
     ? Choose a type: Manual Deployment
     ```
-
-    以下コマンドを入力し、フロントエンドアプリケーションをデプロイする。
+3. 以下コマンドを入力し、フロントエンドアプリケーションをデプロイする。
     ```
     amplify publish
     ```
@@ -70,7 +71,7 @@ AmplifyとAPI Gatewayを使った簡単なサーバレスアプリケーショ�
 ### infrastructureディレクトリ
 インフラリソースを作成するためのTerraformファイルを配置するディレクトリ。。modulesディレクトリに各AWSリソースを作成するためのtfファイルを配置する。
 
-programディレクトリ
+### programディレクトリ
 アプリケーションプログラムを配置するディレクトリ。 フロントエンドアプリケーションとAWS Lambdaで使用する関数を配置する。
 
 # アーキテクチャ図
