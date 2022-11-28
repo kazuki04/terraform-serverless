@@ -11,7 +11,7 @@ export default function Top() {
     return (
         <div className={styles.container}>
             <main className={styles.main}>
-                Top page
+                <h1>Top page</h1>
                 <button onClick={handleClickLoginButton }>Sign in</button>
             </main>
         </div>

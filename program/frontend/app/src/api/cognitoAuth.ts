@@ -12,7 +12,7 @@ import {
     CognitoUserSession,
 } from 'amazon-cognito-identity-js';
 
-function getPoolData(): poolData {
+export function getPoolData(): poolData {
     const poolData: poolData = {
         UserPoolId: process.env.NEXT_PUBLIC_USER_POOL_ID as string,
         ClientId: process.env.NEXT_PUBLIC_CLIENT_ID as string,
@@ -89,3 +89,15 @@ export function getCognitoAccessToken(): string | null {
 
     return accessToken;
 }
+
+export function redirectUnAuthenticatedUser(): void {
+    const poolData: poolData = getPoolData();
+
+    const userPool = new CognitoUserPool(poolData);
+    const cognitoUser = userPool.getCurrentUser();
+
+
+    if (!cognitoUser) {
+        window.location.href = '/login';
+    }
+};

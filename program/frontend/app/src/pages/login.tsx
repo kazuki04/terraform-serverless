@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import {useRouter} from 'next/router';
 import {ChangeEvent, useState} from 'react';
 import {cognitoAuth} from '../api/cognitoAuth';
@@ -35,6 +36,9 @@ export default function Login() {
                     <input type="password" id="passwordInputLogin" className={styles.input} placeholder="Password" pattern=".*" value={password} onChange={handleChangePassword} required />
                     <button type="button" className={styles.input} onClick={handleSingIn}>Sign in</button>
                 </form>
+                <Link href='/'>
+                    <button className={styles.back_home_btn}>Back home</button>
+                </Link>
             </main>
         </div>
     );

@@ -42,7 +42,7 @@ export default function Home() {
 
     return (
         <div>
-            <h1>Home</h1>
+            <h1>Home</h1> 
             {
                 articles.map((article: Article, index) => 
                     <div key={index} className={styles.article}>
@@ -53,6 +53,10 @@ export default function Home() {
                         </div>
                     </div>
                 )
+            }
+            {
+                articles.length > 0 &&
+                <h2>There are no articles.</h2>
             }
         </div>
     );

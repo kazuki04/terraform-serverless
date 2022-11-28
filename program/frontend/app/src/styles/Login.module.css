@@ -1,5 +1,10 @@
 .input {
   display:block;
+  margin: auto;
+}
+
+.back_home_btn{
+  margin-top: 1rem;
 }
 
 .submit_button {
