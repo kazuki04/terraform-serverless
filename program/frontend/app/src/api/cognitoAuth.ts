@@ -99,5 +99,13 @@ export function redirectUnAuthenticatedUser(): void {
 
     if (!cognitoUser) {
         window.location.href = '/login';
+        return;
     }
+
+    cognitoUser.getSession(function (err: Error | null, session: null | CognitoUserSession ) {
+        if (session !== null && session.isValid()) {
+            window.location.href = '/login';
+        }
+    });
+
 };
