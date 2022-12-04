@@ -3,7 +3,7 @@ import {
     poolData,
     signInResult,
 }
-from "../types/cognitoAuth"
+from '../types/cognitoAuth';
 import {
     AuthenticationDetails,
     CognitoUser,
@@ -12,7 +12,7 @@ import {
     CognitoUserSession,
 } from 'amazon-cognito-identity-js';
 
-function getPoolData(): poolData {
+export function getPoolData(): poolData {
     const poolData: poolData = {
         UserPoolId: process.env.NEXT_PUBLIC_USER_POOL_ID as string,
         ClientId: process.env.NEXT_PUBLIC_CLIENT_ID as string,
@@ -26,7 +26,7 @@ function getPoolData(): poolData {
 }
 
 export async function cognitoAuth(username: string, password: string): Promise<signInResult> {
-    const poolData: poolData = getPoolData()
+    const poolData: poolData = getPoolData();
     
     const userPool = new CognitoUserPool(poolData);
     let userData = {
@@ -54,38 +54,58 @@ export async function cognitoAuth(username: string, password: string): Promise<s
               err: err,
             }),
         });
-    })
+    });
 
-    return signInResult
+    return signInResult;
 };
 
 export function getCognitoUserSession(): CognitoUserSession| null {
-    const poolData: poolData = getPoolData()
+    const poolData: poolData = getPoolData();
 
     const userPool = new CognitoUserPool(poolData);
-    const cognitoUser = userPool.getCurrentUser()
+    const cognitoUser = userPool.getCurrentUser();
 
     if (!cognitoUser) {
-        return null
+        return null;
     }
 
-    let userSession = null
+    let userSession = null;
     cognitoUser.getSession((err: Error, session: CognitoUserSession | null) => {
         if (session != null) {
-            userSession = session
+            userSession = session;
         }
-    })
+    });
 
-    return userSession
+    return userSession;
 }
 
 export function getCognitoAccessToken(): string | null {
-    const userSession = getCognitoUserSession()
+    const userSession = getCognitoUserSession();
 
-    let accessToken = null
+    let accessToken = null;
     if (userSession != null) {
-        accessToken = userSession.getAccessToken().getJwtToken()
+        accessToken = userSession.getAccessToken().getJwtToken();
     }
 
-    return accessToken
+    return accessToken;
 }
+
+export function redirectUnAuthenticatedUser(): void {
+    const poolData: poolData = getPoolData();
+
+    const userPool = new CognitoUserPool(poolData);
+    const cognitoUser = userPool.getCurrentUser();
+
+
+    if (!cognitoUser) {
+        window.location.href = '/login';
+        return;
+    }
+
+    cognitoUser.getSession(function (err: Error | null, session: null | CognitoUserSession ) {
+        if (session !== null && session.isValid()) {
+            window.location.href = '/login';
+        }
+    });
+
+};

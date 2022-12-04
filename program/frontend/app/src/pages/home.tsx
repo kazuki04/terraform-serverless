@@ -1,19 +1,18 @@
-import { AxiosResponse } from 'axios'
-import { useState, useEffect } from 'react'
-import apiClient from '../api/apiClient'
-import { getCognitoAccessToken } from "../api/cognitoAuth"
-import { Article } from "../types/article"
-import styles from '../styles/Index.module.css'
+import {AxiosResponse} from 'axios';
+import {useState, useEffect} from 'react';
+import apiClient from '../api/apiClient';
+import {getCognitoAccessToken} from '../api/cognitoAuth';
+import {Article} from '../types/article';
+import styles from '../styles/Index.module.css';
 
 export default function Home() {
-    const [articles, setArticles] = useState([])
-
+    const [articles, setArticles] = useState([]);
 
     const fetchArticles = async () => {
-        const authToken = getCognitoAccessToken()
+        const authToken = getCognitoAccessToken();
 
         try {
-            apiClient.interceptors
+            apiClient.interceptors;
             const response: AxiosResponse = await apiClient.get(
                 '/api/v1/articles',
                 {
@@ -21,26 +20,29 @@ export default function Home() {
                         Authorization: authToken
                     }
                 }
-            )
+            );
 
-            return response
+            return response;
         } catch (e: any) {
             return {
-                data: null
-            }
+                data: []
+            };
         }
-    }
+    };
 
     useEffect(() => {
         (async() => {
-            const response = await fetchArticles()
-            setArticles(response.data.articles.Items)
-        })()
-      }, [])
+            const response = await fetchArticles();
+ 
+            if (response.data.length !== 0) {
+                setArticles(response.data.articles.Items);
+            }
+        })();
+      }, []);
 
     return (
         <div>
-            <h1>Home</h1>
+            <h1>Home</h1> 
             {
                 articles.map((article: Article, index) => 
                     <div key={index} className={styles.article}>
@@ -52,6 +54,10 @@ export default function Home() {
                     </div>
                 )
             }
+            {
+                articles.length > 0 &&
+                <h2>There are no articles.</h2>
+            }
         </div>
-    )
+    );
 }
